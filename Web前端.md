@@ -38,3 +38,5 @@ body属性：
 `git config --global user.name "xiaosu"`
 `git congig --global user.email "sujianyun2019@163.com"`
 ## 将文件放入仓库
+`git add ./filename`
+`git commit -m "描述"`
