@@ -31,12 +31,4 @@ body属性：
 	&copy; 表示©（版权）
 	例如：
 	
-# Git
-## 初始化git仓库
-`git init`
-## 设置当前使用用户
-`git config --global user.name "xiaosu"`
-`git congig --global user.email "sujianyun2019@163.com"`
-## 将文件放入仓库
-`git add ./filename`
-`git commit -m "描述"`
+
