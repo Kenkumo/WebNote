@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>网页标题</title>
-		<meta charset="utf-8"/>
-	</head>
-	<body text="red" bgcolor="yellow">
-		<p>我的第一个HTML页面</p>
-		<form action="url" method="get/post" name="表单名称">
-			<label>用户名: <input type="text" name="username"/></label>
-			<label>密&nbsp;码 <input type="password" name="pwd"</label>
-			<input type="submit" value="提交" />
-			<input type="reset" value="重置" />
-		</form>
-		</body>
-	</body>
+<html lang="zh">
+<head>
+	<style>
+		#father #son {
+			color: blue;
+		}
+		#father p.c2 {
+			color: black;
+		}
+		div.c1 p.c2 {
+			color: red;
+		}
+		#father {
+			color: green !important;
+		}
+	</style>
+</head>
+<body>
+	<div id="father" class="c1">
+		<p id="son" class="c2">
+			试问这行字体是什么颜色？
+		</p>
+	</div>	
+</body>
 </html>
-
