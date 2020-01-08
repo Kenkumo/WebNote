@@ -590,3 +590,402 @@ CSS3中可通过box-sizing指定盒模型：content-box、border-box
 
 注：可用","隔开，添加多个效果
 
+# 浮动(float)
+## 普通流(normal flow)
+网页布局核心：用CSS摆放盒子位置
+CSS定位机制：普通流（标准流）、浮动和定位
+普通流（标准流/文档流）：一个网页内标签元素正常从上到下，从左到右排列顺序的意思
+
+## 什么是浮动
+元素浮动：指设置浮动属性的元素会脱离标准普通流的控制，移动到其父元素中指定位置的过程
+
+|属性值	|描述				|
+|--		|--					|
+|left	|元素向左浮动		|
+|right	|元素向右浮动		|
+|none	|元素不浮动（默认）	|
+
+## 浮动详细内幕特性
+**浮动脱离标准流，不占位置，会影响标准流，浮动只有左右浮动**
+1. 浮动首先需要添加标准流父级
+浮动不会超过父级的padding和border
+2. 两个盒子都浮动，顶部对齐--->一个浮动，其它都要浮动，才能一行对齐显示
+3. 第一个盒子不浮动，第二个盒子浮动，底部对齐
+4. 元素添加浮动后，会具有行内块元素的特性。元素大小完全取决于定义的大小或者默认的内容多少，一行可放多个
+
+## 浮动总结
+float  浮漏特
+浮：加了浮动的元素盒子是浮起来的，漂浮在其他的标准流盒子上面
+漏：加了浮动的盒子，不占位置，它浮起来，原来的位置漏给标准流盒子
+特：特别注意，首先浮动的盒子需要和标准流的父级搭配使用，其次，特别的注意浮动可以使元素显示模式体现为行内块特性
+
+# 版心和布局流程
+版心：指网页中主题内容所在的区域，一般在浏览器窗口中水平居中显示，常见的宽度为值为：960px、980px、1000px、1200px等
+
+## 布局流程
+1. 确定页面的版心（可视区）
+2. 分析页面中的模块，以及每个行模块中的列模块
+3. 制作HTML页面，CSS文件
+4. CSS初始化，然后开始运用盒子模型的原理，通过DIV+CSS布局来控制网页的各个模块
+
+### 一列固定宽度且居中
+.top+.banner+.main+.footer：生成四个div盒子
+CSS初始化
+```
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	/*并集选择器写重复的属性*/
+	.top,
+	.banner,
+	.main,
+	.footer {
+		width: 960px;
+		text-align: center; /*文字居中*/
+		margin: 0 auto; /*盒子居中*/
+		margin-bottom: 10px;
+	}
+	.top {
+		height: 80px;
+		background-color: pink;
+	}
+	.banner {
+		height: 120px;
+		background-color: purple;
+	}
+	.main {
+		height: 500px;
+		background-color: hotpink;
+	}
+	.footer {
+		height: 150px;
+		background-color: yellow
+	}
+```
+
+## 两列左窄右宽型(如小米官网)
+.top+.banner+(.main>.left+.right)+.footer
+```
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	.top,
+	.banner,
+	.main,
+	footer {
+		width: 960px;
+		margin: 0 auto;
+		text-align: center;
+		border: 1px dashed #ccc
+		background-color: #eee;
+		margin-bottom: 8px;
+	}
+	.top{
+		height: 80px;
+	}
+	.banner {
+		height: 150px;
+	}
+	.main {
+		500px;
+	}
+	.left {
+		width: 360px;
+		height: 500px;
+		background-color: pink;
+		float: left;
+		
+	}
+	.right {
+		width: 592px; /*中间留8px*/
+		height: 500px;
+		background-color: purple;
+		float: right;
+	}
+	.footer {
+		height:120px;
+	}
+```
+
+## 通栏平均分布型(如锤子官网)
+
+```
+<head>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		ul {
+			list-style: none;
+		}
+
+		.top {
+			/* 通栏盒子不用写宽度 */
+			height: 80px;
+			border: 1px dashed #aaa;
+			text-align: center;
+			margin: 0 auto;
+			background-color: #ccc;
+		}
+
+		.banner {
+			width: 960px;
+			height: 120px;
+			border: 1px dashed #aaa;
+			text-align: center;
+			margin: 10px auto;
+			background-color: #CCCCCC;
+		}
+
+		.small {
+			width: 960px;
+			height: 100px;
+			/* background-color: pink; */
+			margin: 0 auto;
+			margin-bottom: 10px;
+		}
+		.small ul li {
+			width: 230.5px; /*父盒子宽度-border-小盒子间距*/
+			border: 1px dashed #aaa;
+			background-color: #eee;
+			height: 100px;
+			float: left;
+			margin-left: 10px;
+		}
+		.small .nomargin {
+			margin-left: 0;
+		}
+		.footer {
+			height: 150px;
+			border: 1px dashed #AAAAAA;
+			background-color: #EEEEEE;
+			margin-top: 10px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="top">top</div>
+	<div class="banner">banner</div>
+	<div class="small">
+		<ul>
+			<li class="nomargin">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</div>
+	<div class="small">
+		<ul>
+			<li class="nomargin">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</div>
+	<div class="small">
+		<ul>
+			<li class="nomargin">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</div>
+	<div class="footer">footer</div>
+</body>
+```
+
+# 清除浮动
+## 清除浮动本质
+主要为了坚决父级元素因为子级浮动引起内部高度为0的问题
+不给父级元素给定高度：
+	标准流：父级元素被子级元素撑开
+	浮动：父级元素不能被子级元素撑开
+	
+**很多情况下，不方便给父级元素给定高度，如新闻模块**
+
+## 清除浮动的方法(闭合浮动)
+把浮动的盒子圈到里面，让父盒子闭合出口和入口不让它们出来影响其它元素
+- 选择器{ clear: 属性值;}
+|属性值	|描述									|
+|--		|--										|
+|left	|不允许左侧有浮动（清除左侧浮动的影响）	|
+|right	|不允许右侧有浮动（清除右侧浮动的影响）	|
+|both	|同时清除左右两侧浮动的影响				|
+
+### 额外标签法
+W3C推荐做法：在浮动元素末尾添加一个空标签如:```<div style="clear:both"></div>```或者其它标签br等亦可
+优点：通俗易懂，书写方便
+缺点：添加许多无意义标签，结构化较差，不推荐使用。
+
+### 父级添加overflow属性方法
+可以通过触发BFC的方式，可以实现清除浮动效果
+给父级添加：```overflow: hidden | auto | scroll;```都可实现
+优点：代码简洁
+缺点：内容增多时容易造成不会自动换行导致内容被隐藏，无法显示需要溢出的元素
+
+### 使用after伪元素清除浮动
+:after方式为空元素升级版
+```
+	.clearfix:after {
+		content: "."; /*尽量不要空，防止旧版本浏览器有空隙*/
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+	.clearfix {
+		*zoom: 1; /*IE6、7专有，带有*的属性，只有IE6、7能识别*/
+	}
+```
+优点：复合闭合浮动思想，结构语义化正确
+缺点：由于IE6、7不支持:after，使用zoom: 1;触发hasLayout
+代表网站：百度、淘宝、网易等
+
+### 使用before和after双伪元素清除浮动（推荐使用）
+```
+	.clearfix:before, .clearfix:after {
+		content: "";
+		display: table;
+	}
+	.clearfix:after {
+		clear: both;
+	}
+	.clearfix {
+		*zoom: 1;
+	}
+```
+代表网站：小米，腾讯
+
+# Photoshop基本使用
+## 基本快捷键
+- 移动工具：v
+- 自由变形：ctrl+T，按住shift可等比缩放
+- 图层操作：F7，图层就是一张张透明的纸，可实现叠加问题
+- 复制图层：
+	- 按住ALT拖曳图像
+	- 重合：ctrl+J  
+- 分组：
+	- 选中目标图层：ctrl+G
+	- 取消编组：ctrl+shift+G
+- 移动图层：
+	- 向上移动：ctrl+]
+	- 向下移动：ctrl+[
+	- 图层置顶：ctrl+shift+]
+	- 图层置底：ctrl+shift+[
+	- 用鼠标拖动，按住shift可沿同一水平线、同一垂线，45°移动
+- 撤销：
+	- 撤销一步：ctrl+z
+	- 撤销多步：ctrl+alt+z
+- 合并图层：ctrl+e
+- 取消选区：ctrl+d
+- 颜色填充：
+	- 前景色：alt+delete
+	- 背景色：ctrl+delete
+- 选区反选：ctrl+shift+I
+- 选区布尔运算
+	- 添加到选区：相加运算 按住shift再绘制选区
+	- 从选区减去：相减 按住alt
+	- 与选区交叉：保留重合部分 alt+shift
+- 钢笔工具 P
+	- 绘制路径后：ctrl+回车 生成选区
+	- 按住alt点一下，回复直线
+
+## 切图方法
+1. 手动划片
+2. 图层菜单-新建基于图层的切片
+3. 利用标尺-基于参考线的切片
+3. 视图-清除切片
+4. 文件-存储为Web所用格式-存储-切片（选中的切片）
+
+切图插件(Photoshop完整版才行)：Cutterman，能够自动将你需要的图层进行输出
+点击快速选中图层：工具栏-选择-自动选择-图层
+按住shift加选
+
+# 学成网案例（上）
+
+# 定位
+## 元素的定位属性
+### 边偏移
+|边偏移属性	|描述											|
+|--			|--												|
+|top		|顶端偏移量，定义元素相对于其父元素上边线的距离	|
+|bottom		|底部偏移量，定义元素相对于其父元素下边线的距离	|
+|left		|左侧偏移量，定义元素相对于其父元素左边线的距离	|
+|right		|右侧偏移量，定义元素相对于其父元素右边线的距离	|
+
+### 定位模式
+选择器 {position: 属性值;}
+|值			|描述												|
+|--			|--													|
+|static		|自动定位（默认）									|
+|relative	|相对定位，相对于其原文档流的位置进行定位			|
+|absolute	|绝对定位，相对于其上一个已经定位的父元素进行定位	|
+|fixed		|固定定位，相对于浏览器窗口进行定位					|
+
+## 静态定位(static)
+边偏移无效，一般用来清除定位。
+
+## 相对定位(relative)
+相对于自己移动位置，原来所在位置继续占有，相对定位的盒子仍在标准流中
+
+## 绝对定位(absolute)
+完全脱离标准流，不占有位置
+### 父级没有定位
+孩子以浏览器为基准点对齐
+
+### 父级有定位(relative/absolute)
+孩子以最近的父级为准
+
+### 子绝父相
+1. 相对定位：占有位置，不脱标
+2. 绝对定位：不占有位置，完全脱标
+
+孩子绝对定位，父亲相对定位
+
+### 绝对定位水平/垂直居中
+普通合子是左右margin改为auto就可，但绝对定位就无效了
+绝对定位居中方法：
+	1. 先left50%（父盒子的一半大小）
+	2. 然后走自己外边距负的一半值（往左走自己宽度的一半）
+如：
+	left: 50%;
+	margin-left: -50px;
+	top: 50%;
+	margin-top: -40px;
+	
+## 固定定位(fixed)
+1. 固定定位元素跟父亲没有任何关系，只认浏览器
+2. 完全脱标，以浏览器窗口为参照，不占有位置，不随着滚动条滚动
+
+**固定定位的盒子一定要写宽和高，除非由内容撑开**
+``` height: 44px;
+	width: 100%;
+	position: fixed;
+```
+
+## 叠放次序(z-index)
+取值可为正整数、负整数和0
+注意：
+	z-index的默认属性值是0，取值越大，定位元素在层叠元素中越居上
+	如果取值相同，则根据书写顺序，后来居上
+	后面数字不能加单位
+	只有相对定位、绝对定位、固定定位有此属性，其余标准流、浮动、静态定位都无此属性
+
+## 定位总结
+|定位模式			|是否脱标占有位置		|是否可以使用偏移	|移动位置基准				|
+|--					|--						|--					|--							|
+|静态定位static		|不脱标，正常模式		|不可以				|正常模式					|
+|相对定位relative	|不脱标，占有位置		|可以				|相对自身位置移动			|
+|绝对定位absolute	|完全脱标，不占有位置	|可以				|相对于定位父级移动位置		|
+|固定定位fixed		|完全脱标，不占有位置	|可以				|相对于浏览器移动位置		|
+
+## 定位模式的转换
+与**浮动**一样，元素添加**绝对定位和固定定位**后，元素模式也会转换为行内块元素
+**因此，行内元素如果添加了绝对定位和固定定位后，可以不用再转换模式，直接给高度和宽度就可以了**
+
+
+
