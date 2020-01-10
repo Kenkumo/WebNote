@@ -987,5 +987,307 @@ W3C推荐做法：在浮动元素末尾添加一个空标签如:```<div style="c
 与**浮动**一样，元素添加**绝对定位和固定定位**后，元素模式也会转换为行内块元素
 **因此，行内元素如果添加了绝对定位和固定定位后，可以不用再转换模式，直接给高度和宽度就可以了**
 
+# 元素的显示与隐藏
+在页面中消失，但不在源码中删除。最常见的是广告
 
+## display显示
+display: none;隐藏对象
+display: block;显示对象
+特点：隐藏后不再保留位置
 
+## visibility可见性
+设置或检索是否显示对象
+visible: 对象可视
+hidden: 对象隐藏
+特点：隐藏后，继续保留原有位置
+
+## overflow溢出
+检索或设置当前对象的内容超过其指定高度及宽度时如何管理内容
+visible：不剪切内容也不添加滚动条（默认）
+auto：超出自动显示滚动条，不超出不显示滚动条
+hidden：隐藏超出部分的内容（用的最多）
+scroll：不管是否超出，总是显示滚动条
+
+# CSS高级技巧
+## CSS用户界面样式
+### 鼠标样式cursor
+cursor: default | pointer | move | text
+
+### 轮廓outline
+outline: outline-color || outline-style || outline-width
+通常只写：outline: 0/none;
+
+### 防止拖拽文本域resize
+resize: none; 防止火狐，谷歌等浏览器随意拖动文本域
+右下角可拖拽：<textarea></textarea>
+右下角不可拖拽：<textarea style="resize: none;"></textarea>
+
+## vertical-align垂直对齐
+### 图片、表单和文字对齐
+vertical-align: baseline（默认） | top | middle | bottom
+vertical-align不影响块级元素中的内容对齐，只针对行内元素或者行内块元素，**通常用来控制图片和表单与文字的对齐**
+
+图片文字居中对齐:
+img {
+	vertical-align: middle;
+}
+表单与文字居中对齐：
+textarea {
+	vertical-align: middle;
+}
+
+### 去除图片底侧空白缝隙
+重要特性：图片或表单等行内块元素，它的底线会和父级盒子的基线对齐，就会造成图片底侧有一个空白缝隙
+解决办法：
+	1. 给img添加vertical-align: middle | top（用的最多）等，让图片不要和基线对齐
+	2. 给img添加display: block;转换为块级元素
+
+# 溢出文字的隐藏
+## word-break自动换行
+normal：浏览器默认规则
+break-all：允许在单词内换行（单词可拆开）
+keep-all：只能在半角空格或连字符处“-”换行（没有连字符的单词不可拆）
+主要处理英文单词
+
+## white-space
+通常用于强制一行显示内容
+normal：默认
+nowrap：强制在同一行显示所有文本，直到文本结束或者遭遇br标签对象才换行 （如新闻标题）
+
+## text-overflow文字溢出
+设置或检索是否使用一个省略标记（...）表示对象内文本的溢出
+clip：不显示(...)而是简单的裁切
+ellipsis：当对象内文本溢出时显示省略标记(...)
+注：一定要首先强制一行内显示，再和overflow属性搭配使用
+```
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+```
+
+# CSS精灵技术（sprite）(小妖精/雪碧)
+## 产生背景
+有效减少服务器接受和发送请求的次数，提高页面的加载速度
+
+## 精灵技术本质
+用于处理网页背景图像的方式。将一个页面涉及到的所有背景图集中到一张大图中，然后将大图应用于网页，这样只需向服务器
+发送一次请求就可全部展示网页中的背景图。一般称这个大图为<u>精灵图</u>
+
+## 精灵图的使用
+主要是盒子的width和height，以及所需图片在精灵图中的position（一般都是负值）
+
+## 制作精灵图
+一般由网页美工做
+- 精灵图上放的都是小的装饰性质的背景图片。不能放插入图片
+- 精灵图的宽度取决于最宽的背景
+- 可以横向摆放，也可以纵向摆放，但每个图片之间间隔至少隔开偶数像素
+- 在最低端留一片空隙，方便以后添加其它精灵图
+背景图片较多时，建议使用精灵技术
+
+PS:
+- 新建文件
+- 名称：sprite
+- 设置合适的宽高（最宽背景图的宽）
+- 背景内容：透明
+- 找到psd文件中的背景图所包含的图层-复制到sprite-合并图层
+- 保存1：文件-存储为psd格式
+- 保存2：文件-存储为web所用格式-PNG-24/PNG-8-选中透明度
+
+## 字体图标
+### 字体图片使用流程
+1. UI人员设计字体图标效果图(svg)
+用illustrator或Sketch等矢量图形软件创建icon图标，保存为svg格式
+
+2. 前端人员上传生成兼容性字体文件包
+推荐网站：http://icomoon.io/http://www.iconfont.cn
+
+3. 前端人员下载兼容字体文件包到本地
+fonts文件夹
+
+4. 把字体文件包引入到HTML页面中
+将fonts文件夹复制到项目文件夹中
+```
+<style>
+第一步：在样式中声明字体
+	@font-face { /*声明电脑中没有的字体*/
+		font-family: 'icomoon';
+		src: url('fonts/icomoon.');
+		src: url('fonts.icomoon.') format('后缀格式'),
+		src: url('fonts.icomoon.') format('后缀格式'),
+		src: url('fonts.icomoon.') format('后缀格式');
+		font-weight: normal;
+		font-style: normal;
+	}
+第二步：给盒子使用字体
+	/*引用字体*/
+	span {
+		font-family: "icomoon"; /*保证和上面的font-family名字相同*/
+	}
+第三步：盒子里面添加结构(字体包中的index.html文件中)
+	span::before {
+		content: "\e900";
+	}
+	或者复制小方块
+	<span>小方块</span>
+</style>
+```
+
+### 追加新图标到原来库里面
+把压缩包里面的selection.json从新上传，然后选中自己想要的新图标，从新下载压缩包替换原来的文件
+
+# 滑动门
+## 滑动门出现的背景
+为了使各种特殊形状的背景能够自适应元素中文本内容的多少。它从新的角度构建页面，使各种特殊形状的背景能够自耦拉伸
+滑动，以适应元素内部的文本内容，可用性更强。常见于各种导航栏的滑动门(如微信官网)
+
+## 核心技术
+利用CSS精灵（主要是背景位置）和盒子padding撑开宽度，以适应不同字数的导航栏
+一般布局如下
+```
+	<li>
+		<a href="#">
+			<span>导航栏内容</span>
+		</a>
+	</li>
+```
+总结：
+- a设置背景左侧，padding撑开合适宽度
+- span设置背景右侧，padding撑开合适宽度，剩下由文字继续撑开宽度
+- 之所以a包含span就是因为整个导航都是可以点击的
+示例：
+```
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	a {
+		display: inline-block;
+		height: ..px;
+		/*不能给宽度,用padding挤开*/
+		background: url(images/xx.png) no-repeat;
+		padding-left: ..px; /*撑开盒子*/
+		text-decoration: none;
+		line-height: ..px;
+	}
+	a span {
+		display: inline-block;
+		height: ..px;
+		background: url(images/xx.png) no-repeat right;/*背景右对齐right*/
+		padding-right: ..px; /*撑开盒子*/
+	}
+</style>
+<body>
+	<a href="#">
+		<span>首页</span>
+	</a>
+</body>
+```
+
+# before和after伪元素（详解）
+.one：类选择器
+:hover：伪类选择器
+::after：伪元素选择器
+
+伪元素选择器：本质上是插入一个元素（标签、盒子），只不过是行内元素（不能设置宽高）
+
+## 鼠标经过显示边框
+```
+	div {
+		width: 296px;
+		height: 180px;
+		margin: 20px auto;
+		position: relative;
+	}
+	div:hover::before {
+		content: "";
+		width: 100%;
+		height: 100%;
+		border: 10px solid rgba(255,255,255, .4);
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		box-sizing: border-box;
+	}
+```
+
+# 过渡(CSS3)
+transition:要过渡的属性 花费时间 运动曲线 何时开始;
+如果有多组属性变化，用","隔开
+
+|属性						|描述										|CSS|
+|--							|--											|--	|
+|transition					|简写属性，用于在一个属性中设置四个过渡属性	| 3	|
+|transition-property		|规定应用过渡的CSS属性的名称				| 3	|
+|transition-duration		|定义过渡效果花费的时间，默认是0s			| 3	|
+|transition-timing-function	|规定过渡效果的时间曲线，默认是"ease"		| 3	|
+|transition-delay			|规定过渡效果何时开始，默认是0s				| 3	|
+
+属性名称：all（所有属性都变化）
+花费时间：s | ms
+过渡效果：匀速(linear) | 逐渐慢下来(ease) | 加速(ease-in) | 减速(ease-out) | 先加速后减速(ease-in-out)
+例：
+```
+<style>
+	div {
+		width: 200px;
+		height: 100px;
+		background-color: pink;
+		transition: width 0.6s ease 0s, height 0.3s ease-in 1s;
+		/*transition写在div中而不是hover里，若写到hover里当鼠标移开时会一下恢复原样，没有过渡效果*/
+	}
+	div:hover {
+		width: 600px;
+		height: 300px;
+	}
+</style>
+```
+
+# 2D变形(CSS3) transform
+可实现元素的位移、旋转、变形、缩放，甚至支持矩阵方式，配合过渡和即将学习的动画知识，可取代大量之前只能靠Flash才能实现的效果。
+变形转换transform
+
+- 移动translate(x,y)
+移动translate(x,y)：水平方向和垂直方向同时移动
+translateX(x)：仅水平方向移动
+translateY(y)：仅垂直方向移动
+transform: translate(50%); %表示走自己宽度的一半
+transform: translate(-50%, -50%);
+
+**定位的盒子居中对齐的完美写法：**
+```
+div {
+	position: absolute;
+	left: 50%;
+	/*margin-left: -100px;*/
+	transform: translate(-50%);
+}
+```
+
+- 缩放scale(x,y)
+scale(x,y)
+scaleX(x)
+scaleY(y)
+
+transform: scale(0.8,1); /*缩小：0.01~0.99，放大：1.01~*/
+
+- 旋转roate(deg)
+transform: rotate(45deg);
+deg是单位，正值顺时针，负值逆时针
+
+注：
+元素旋转后，坐标轴也跟着发生转变
+调整顺序后可以解决，把旋转放到最后
+注意单位是deg度数
+
+- 倾斜skew(deg, deg)
+transform: skew(30deg, 0deg); /*水平倾斜30度，第二个参数不写默认为0*/
+
+transform-origin可以调整元素转换的原点
+```
+div {
+	 transform-origin: left top;
+	 transform: rotate(45deg); 
+}  /* 改变元素原点到左上角，然后进行顺时旋转45度 */    
+```
