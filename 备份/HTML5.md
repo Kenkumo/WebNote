@@ -1,16 +1,23 @@
-# Web标准
-结构标准：HTML
-样式标准：CSS
-行为标准：js
+# HTML
 
-# HTML基本结构
+## Web标准
+
+- 结构标准：HTML
+- 样式标准：CSS
+- 行为标准：js
+
+## HTML基本结构
+
+``` html
 <html>
-	<head>
-		<title></title>
+    <head>
+      <title></title>
 	</head>
 	<body>
 	</body>
 </html>
+```
+
 # HTML标签
 ## 标签分类
 双标签:`<body> </body>`
