@@ -1260,8 +1260,9 @@ transform: translate(-50%, -50%);
 div {
 	position: absolute;
 	left: 50%;
+	top: 50%;
 	/*margin-left: -100px;*/
-	transform: translate(-50%);
+	transform: translate(-50%, -50%);
 }
 ```
 
@@ -1274,6 +1275,7 @@ transform: scale(0.8,1); /*缩小：0.01~0.99，放大：1.01~*/
 
 - 旋转roate(deg)
 transform: rotate(45deg);
+transform-origin可以调整元素转换的原点,4个角可用left top等，精确位置用px像素
 deg是单位，正值顺时针，负值逆时针
 
 注：
@@ -1291,3 +1293,223 @@ div {
 	 transform: rotate(45deg); 
 }  /* 改变元素原点到左上角，然后进行顺时旋转45度 */    
 ```
+
+# 3D变形(CSS3) transform
+## 旋转 rotate
+rotateX()：沿着x立体旋转
+```
+	img {
+		transition: all 0.5s ease 0s;
+	}
+	img:hover {
+		transform: rotateX(180deg);
+	}
+	
+```
+rotateY()：沿着y立体旋转
+rotateZ()：沿着Z立体旋转
+backface-visibility: hidden; 不是正面就隐藏
+
+## 透视 perspective
+透视原理：近大远小
+浏览器透视：把近大远小的所有图像，透视在屏幕上
+perspective：视距，表示视点距离屏幕的长短。视点，用于模拟透视效果时人眼的位置
+
+perspective一般作为一个属性，设置给父元素，作用于所有3D转换的子元素
+
+## 移动 translate
+translateX(100px);
+translateY(100px);
+translateZ(100px); 物体到屏幕的距离
+
+transform: translate3d(x, y, z);x和y可以是px或%，z只能是px
+
+# 动画(CSS3) animation
+animation: 动画名称 动画时间 运动曲线 何时开始 播放次数 是否反向;
+
+|属性						|描述											|CSS|
+|--							|--												|--	|
+|@keyframes					|规定动画										|3	|
+|animation					|除了animation-play-state属性外的属性的简写属性	|3	|
+|animation-name				|规定@keyframes动画的名称						|3	|
+|animation-duration			|规定动画完成一个周期所花费的秒或毫秒。默认是0	|3	|
+|animation-timing-function	|规定动画的速度曲线。默认是ease					|3	|
+|animation-delay			|规定动画何时开始。默认是0						|3	|
+|animation-iteration-count	|规定动画被播放的次数。默认是1					|3	|
+|animation-direction		|规定动画是否在下一周期逆向播放。默认是normal	|3	|
+|animation-play-state		|规定动画是否正在运行或暂停。默认是running		|3	|
+|animation-fill-mode		|规定对象动画时间之外的状态						|3	|
+```
+@keyframes 动画名称 {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(500px);
+	}
+}
+```
+animation-iteration-count: infinite;无限循环
+animation-direction: normal | reverse | alternate(交替正反) | alternate-reverse(交替反正);
+一般情况只用：
+	animation: animation-name animation-duration;
+
+**多组动画**
+```
+@keyframes goback {
+	0% {/*起始位置 等价于from*/
+		
+	}
+	50% {
+		transform: translateX(1000px);
+	}
+	51% { /*反转图片*/
+		transform: translateX(1000px) rotateY(180deg);
+	}
+	100% {/*结束为止 相当于to*/
+		transform: translateX(0) rotate(180deg);
+	}
+}
+```
+
+# 伸缩布局(CSS3)
+父级添加：display: flex;
+
+属性：
+
+1. flex子项目在主轴缩放比例，不指定flex则不参与伸缩分配。flex: 1;
+通过给某个盒子固定宽度：width: 100px; 则剩下的盒子在减去100px的宽度中分
+min-width: 280px; 最小宽度不能小于280px;
+max-width: 1200px; 最大宽度不能大于1200px;
+
+2. flex-direction: row | column; 设置主轴方向水平|垂直 (父级添加)
+
+3. justify-content调整主轴对齐(水平对齐)
+
+|值				|描述											|												|
+|--				|--												|--												|
+|flex-start		|默认值。项目位于容器开头。						|让子元素从父容器开头排列						|
+|flex-end		|项目位于容器结尾								|让子元素从父容器后面排列						|
+|center			|项目位于容器中心								|让子元素从父容器中间显示						|
+|space-between	|项目位于各行之间留有空白的容器内				|左右的盒子贴近父盒子，中间的平均分布空白间距	|
+|space-around	|项目位于各行之前、之间、之后都留有空白的容器内	|相当于给每个盒子添加了左右margin外边距			|
+
+4. align-items调整侧轴对齐(垂直对齐) *单行用的较多*
+
+|值			|描述							|白话文												|
+|--			|--								|--													|
+|stretch	|默认值，项目被拉伸以适应容器	|让子元素的高度拉伸适用父容器（若子元素不给高度）	|
+|center		|项目位于容器中心				|垂直居中											|
+|flex-start	|项目位于容器的开头				|垂直对齐开始位置									|
+|flex-end	|项目位于容器的结尾				|垂直对齐结束位置									|
+
+5. flex-wrap控制是否换行
+当我们盒子内容的宽度多于父盒子的时候如何处理
+
+|值				|描述																|
+|--				|--																	|
+|nowarp			|默认值，规定灵活的项目不拆行或不拆列。不换行，则收缩（压缩）显示	|
+|wrap			|规定灵活的项目在必要的时候拆行或拆列								|
+|wrap-reverse	|规定灵活的项目在必要的时候拆行或拆列，但以相反的顺序				|
+
+6. align-content堆栈（由flex-wrap产生的独立行）对齐
+align-content是针对felx容器里面多轴（多行）的情况，align-items是针对一行的情况进行排列
+必须对父元素设置自由盒属性display: flex;并且设置排列方式为横向排列flex-direction: row;并设置换行，flex-wrap: wrap;
+如：
+```
+	display: flex;
+	flex-flow: row wrap;
+```
+这样align-content属性才会起作用
+
+|值				|描述											|
+|--				|--												|
+|stretch		|默认值，项目被拉伸以适应容器					|
+|center			|项目位于容器中心								|
+|flex-start		|项目位于容器的开头								|
+|flex-end		|项目位于容器的结尾								|
+|space-between	|项目位于各行之间留有空白的容器内				|
+|space-around	|项目位于各行之前、之间、之后都有空白的容器内	|
+
+7. order控制子项目的排列顺序，正序方式排序，从小到大
+order: -1; 数字越小越靠前，可为负，默认为0；
+
+# BFC(块级格式化上下文)
+BFC是一个独立的渲染区域，只有Block-level Box参与，它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干
+
+## 能产生BFC的元素
+display: block | list-item(ul>li) | table
+
+给以上元素添加如下属性可触发BFC：
+- float不为none
+- display为inline-block,table-cell,table-caption,flex,inline-flex
+- overflow不为visible
+
+## BFC元素所具有的特性
+BFC布局规则特性：
+1. 在BFC中，盒子从顶端开始垂直地一个接一个排列
+2. 盒子垂直方向的距离由margin决定。属于同一个BFC的两个相邻盒子的margin会发生重叠
+3. 在BFC中，每一个盒子的左外边缘(margin-left)会触碰到容器的左边缘(border-left)（对于从右到左的格式来说，则触碰到右边缘）
+4. BFC的区域不会与浮动的盒子产生交集，而是紧贴浮动边缘
+5. 计算BFC的高度时，自然也会检测浮动的盒子的高度
+
+它是一个独立的渲染区域，只有Block-level Box参与，它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干
+
+## BFC的用途
+1. 清除元素内部浮动(父元素未设置高度时)
+只要把父元素设为BFC就可以清理子元素的浮动了，最常见的用法是在父元素上设置overflow: hidden;对于IE6加上zoom: 1;
+主要用到：
+**计算BFC的高度时，自然也会检测浮动的盒子高度**
+
+2. 解决外边距合并问题
+主要用到
+**盒子垂直方向的距离由margin决定。属于同一个BFC的两个相邻盒子的margin会发生重叠**
+属于同一个BFC的两个相邻盒子的margin会发生重叠，那么我们创建不属于同一个BFC，就不会发生margin重叠了
+
+3. 制作右侧自适应的盒子问题
+主要用到
+**BFC的区域不会与浮动盒子产生交集，而是紧贴浮动边缘**
+
+# CSS补充知识
+## 焦点部分所用知识点
+## 背景半透明
+## 优雅降级和渐进增强
+渐进增强(progressive enhancement)：针对低版本浏览器进行构建页面，保证最低的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。
+优雅降级(graceful degradation)：一开始就构建完整的功能，然后再针对低版本浏览器进行兼容
+*区别*：渐进增强是向上兼容，优雅降级是向下兼容
+
+## 浏览器前缀
+|浏览器前缀	|浏览器									|
+|--			|--										|
+|-webkit-	|Google Chrome, Safari, Android Browser	|
+|-moz-		|Firefox								|
+|-o-		|Opera									|
+|-ms-		|Internet Explorer, Edge				|
+|-khtml-	|Konqueror								|
+
+## 背景渐变
+兼容性问题很严重，必须在前面添加浏览器的私有前缀
+线性渐变：
+```
+background: -webkit-linear-gradient(渐变的起始位置, 起始颜色, 结束颜色);
+如:background: -webkit-linear-gradient(top, red, green);
+background: -webkit-linear-gradient(渐变的起始位置, 颜色 位置, 颜色 位置...);
+如:backgrouond: -webkit--linear-gradient(top, red 0%, green 50%, skyblue 80%, hotpink 100%);
+```
+
+## CSS3 W3C统一验证工具
+CssStats是一个在线的CSS代码分析工具
+http://www.cssstats.com
+
+**[W3C统一验证工具](http://validator.w3.org/unicorn/)**
+
+## CSS压缩
+站长之家：http://tool.chinaz.com/Tools/CssFormat.aspx
+
+## 旋转轮播图
+需要用到**透视**，**过渡**，**子元素**，**preserve-3d**
+
+**transform-style**
+指定嵌套元素如何在3D空间中呈现
+flat：默认值，表示所有子元素在2D平面呈现
+preserve-3d：表示所有子元素在3D平面呈现
