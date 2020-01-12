@@ -5,7 +5,7 @@
 3. CSS Unicode字体:"\5B8B\4F53"
 	尽量只写Unicode字体，宋体和微软雅黑:"\5FAE\8F6F\96C5\9ED1", "\5B8B\4F53"
 4. 字体粗细：font-weight: 700;
-	normal等价400，bold等价400
+	normal等价400，bold等价700
 5. 字体风格：font-style: italic; 
 	italic 斜体	，normal 正常
 6. font：font-style font-weight font-size font-familiy;
@@ -16,6 +16,7 @@
 p {
 	color: red;
 }
+
 ## 类选择器
 .className {
 	color: red;
@@ -29,7 +30,6 @@ p {
 	font-size: 14px;
 }
 <div class="c-orange font-size"></div>
-
 ## id选择器
 #big {
 	color: pink;
