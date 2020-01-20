@@ -1,0 +1,719 @@
+/* 字体声明 */
+
+@font-face {
+	font-family: 'icomoon';
+	src: url('../fonts/icomoon.eot?v9osbv');
+	src: url('../fonts/icomoon.eot?v9osbv#iefix') format('embedded-opentype'), url('../fonts/icomoon.ttf?v9osbv') format('truetype'), url('../fonts/icomoon.woff?v9osbv') format('woff'), url('../fonts/icomoon.svg?v9osbv#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
+
+/* 初始样式 */
+
+blockquote,
+body,
+button,
+dd,
+dl,
+dt,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+input,
+legend,
+li,
+ol,
+p,
+pre,
+td,
+textarea,
+th,
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: #999;
+	font-size: 12px;
+}
+
+a:hover {
+	color: #F10215;
+}
+
+body {
+	background-color: #f6f6f6;
+}
+
+.f10 {
+	color: #F10215;
+}
+
+input,
+button {
+	border: 0;
+	outline: none;
+	/* 取消轮廓边框 */
+}
+
+button {
+	cursor: pointer;
+}
+
+/* 顶部广告 */
+
+.activity-top {
+	height: 80px;
+	background-color: #dd021c;
+	cursor: pointer;
+}
+
+.activity-top__inner {
+	width: 1190px;
+	height: 100%;
+	margin: 0 auto;
+	background-image: url(../images/topAd.webp);
+	background-repeat: no-repeat;
+	position: relative;
+}
+
+.promotional-tag__618 {
+	width: 190px;
+	height: 80px;
+	background-image: url(../images/topL.webp);
+	background-repeat: no-repeat;
+	background-size: contain;
+	top: 0;
+	left: 0;
+	position: absolute;
+}
+
+.ad-close-bt {
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	line-height: 20px;
+	opacity: .3;
+	color: #fff;
+	background: #2d2d2d;
+	font-size: 12px;
+	font-weight: 700;
+	top: 5px;
+	right: 0;
+	position: absolute;
+}
+
+.iconfont {
+	font-family: icomoon;
+	font-style: normal;
+}
+
+.two-parts {
+	height: 100%;
+	padding-right: 20px;
+	text-align: right;
+	line-height: 80px;
+}
+
+.two-parts__item {
+	width: 116px;
+	height: 46px;
+	margin-right: 10px;
+	display: inline-block;
+	line-height: 100%;
+	padding-top: 18px;
+}
+
+/*顶部小导航栏*/
+
+#shortcut {
+	height: 31px;
+	background-color: #E3E4E5;
+}
+
+.w {
+	margin: 0 auto;
+	width: 1190px;
+}
+
+#shortcut .w {
+	height: 30px;
+	line-height: 30px;
+	color: #999999;
+	font-size: 12px;
+}
+
+.fl {
+	float: left;
+}
+
+.fl .iconfont {
+	font-size: 14px;
+	color: #f10215;
+}
+
+.fr {
+	float: right;
+}
+
+#shortcut li {
+	float: left;
+}
+
+#shortcut li.spacer {
+	width: 1px;
+	height: 10px;
+	margin: 11px 10px 0;
+	background-color: #ccc;
+}
+
+
+/* 头部 */
+#header {
+	height: 141px;
+	background: #FFFFFF;
+	border-bottom: 1px solid #ddd;
+}
+
+#header .w {
+	position: relative;
+	height: 141px;
+}
+
+.logo a {
+	background-image: url(../images/logo.gif);
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 190px;
+	height: 120px;
+	top: 10px;
+	left: 0;
+	position: absolute;
+}
+
+.form {
+	position: absolute;
+	left: 260px;
+	top: 25px;
+	width: 546px;
+	height: 32px;
+	border: 2px solid #e2231a;
+	background: #fff;
+}
+
+.form input {
+	width: 425px;
+	height: 26px;
+	padding: 2px 44px 2px 17px;
+	float: left;
+	font-size: 12px;
+
+}
+
+.form button {
+	width: 60px;
+	height: 34px;
+	background-color: #e1251b;
+	float: left;
+	color: #fff;
+	font-size: 20px;
+}
+
+.shopcar {
+	width: 130px;
+	height: 34px;
+	border: 1px solid #eee;
+	top: 25px;
+	right: 230px;
+	position: absolute;
+	line-height: 34px;
+	text-align: center;
+}
+
+.shopcar .iconfont {
+	font-size: 16px;
+	color: #e1251b;
+	margin-right: 13px;
+}
+
+.shopcar a {
+	font-size: 12px;
+	color: #e1251b;
+}
+
+.ci-count {
+	font-style: normal;
+	position: absolute;
+	top: 1px;
+	left: 29px;
+	padding: 1px 3px;
+	font-size: 12px;
+	line-height: 12px;
+	color: #fff;
+	background-color: #e1251b;
+	border-radius: 7px;
+	min-width: 12px;
+}
+
+.hotwords {
+	overflow: hidden;
+	position: absolute;
+	left: 260px;
+	top: 65px;
+	height: 20px;
+	width: 550px;
+	line-height: 20px;
+}
+
+.navitems {
+	position: absolute;
+	left: 203px;
+	bottom: 0px;
+	padding-top: 20px;
+	overflow: hidden;
+}
+
+.navitems ul li {
+	float: left;
+}
+
+.navitems li:first-child a,
+.navitems li:nth-child(2) a {
+	font-weight: 700;
+	color: #f10215;
+}
+
+.navitems li a {
+	display: block;
+	height: 40px;
+	line-height: 40px;
+	margin: 0 11px;
+	font-size: 15px;
+	color: #333333;
+}
+
+.navitems li a:hover {
+	color: #c81623;
+}
+
+.treasure {
+
+	position: absolute;
+	top: 12px;
+	right: 0;
+}
+
+.treasure a {
+	width: 190px;
+	height: 120px;
+	display: block;
+	background-image: url(../images/headAd.webp);
+	background-repeat: no-repeat;
+}
+
+.fs {
+	position: relative;
+	/* margin-bottom: 30px; */
+}
+
+.fs_inner {
+	height: 480px;
+	background-color: #f4f4f4;
+	overflow: hidden;
+}
+
+.fs_col1 {
+	width: 190px;
+	height: 480px;
+	float: left;
+	margin-top: 10px;
+	overflow: hidden;
+}
+
+.fs_col1 ul {
+	padding-left: 18px;
+	background-color: #fefefe;
+}
+
+.fs_col1 ul li {
+	height: 25px;
+	line-height: 25px;
+	/* 去除空白间隙 */
+	font-size: 0;
+}
+
+.fs_col1 li a {
+	font-size: 14px;
+	color: #636363;
+}
+
+.fs_col1 li a:hover {
+	color: #c81623;
+}
+
+.fs_col1 ul:hover {
+	background-color: #ccc;
+}
+
+.fs_col1 span {
+	padding: 0 2px;
+	font-size: 12px;
+}
+
+.fs_col2 {
+	width: 790px;
+	margin: 10px;
+	float: left;
+
+}
+
+.focus {
+	position: relative;
+	height: 470px;
+}
+
+.focus-slider {
+	width: 100%;
+	height: 470px;
+}
+
+.focus-item__core a {
+	float: left;
+	width: 590px;
+	height: 470px;
+	margin-right: 10px;
+	background-image: url(../images/focus-item__core.webp);
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.focus-item__recommend {
+	float: left;
+	width: 190px;
+	height: 480px;
+}
+
+.focus-item__recommend a {
+	display: inline-block;
+	width: 190px;
+	height: 150px;
+	margin-bottom: 10px;
+}
+
+.focus-item__recommend a img {
+	width: 190px;
+	height: 150px;
+}
+
+.fs_col3 {
+	width: 190px;
+	height: 480px;
+	position: relative;
+	float: right;
+}
+
+.user_inner {
+	position: relative;
+	padding-top: 67px;
+	height: 35px;
+}
+
+.user_inner a:hover {
+	color: #c81623;
+}
+
+.J_user {
+	width: 190px;
+	height: 102px;
+	margin-top: 10px;
+	background: #fff;
+	overflow: hidden;
+}
+
+.J_user a {
+	color: #666666;
+}
+
+.user_avatar {
+	position: absolute;
+	left: 20px;
+	top: 13px;
+	width: 44px;
+	height: 44px;
+}
+
+.user_avatar_lk {
+	display: block;
+	width: 40px;
+	height: 40px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, .3);
+}
+
+.user_avatar img {
+	width: 40px;
+	height: 40px;
+	display: block;
+	border: 0;
+	vertical-align: bottom;
+}
+
+.user_show {
+	position: absolute;
+	top: 16px;
+	left: 74px;
+	right: 10px;
+
+
+}
+
+.user_show p {
+	height: 20px;
+	line-height: 20px;
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: #666666;
+	font-size: 12px;
+
+}
+
+.user_login,
+.user_reg {
+	color: #333333;
+}
+
+.user_profit {
+	height: 25px;
+	font-size: 0;
+	text-align: center;
+}
+
+.user_profit_lk {
+	display: inline-block;
+	margin: 0 5px;
+	width: 70px;
+	height: 25px;
+	line-height: 25px;
+	font-size: 12px;
+	text-align: center;
+	border-radius: 13px;
+	background: #e1251b;
+	transition: background .3s ease, color .3s ease;
+}
+
+.user_profit .user_profit_lk {
+	color: #fff;
+}
+
+.user_profit .user_profit_lk:hover {
+	background: #c81623;
+	color: #fff;
+}
+
+.user_profit .user_profit_lk_plus {
+	background: #363634;
+	color: #e5d790;
+}
+
+.user_profit .user_profit_lk_plus:hover {
+	background: #c81623;
+	color: #fff;
+}
+
+.user_inner::after {
+	content: "";
+	position: absolute;
+	height: 1px;
+	left: 15px;
+	right: 15px;
+	bottom: 0;
+	background: linear-gradient(270deg, white, #eeeeee, #eeeeee, white);
+}
+
+.J_news {
+	overflow: hidden;
+	height: 130px;
+	background: #fff;
+}
+
+.news .news_hd {
+	height: 20px;
+	padding: 10px 0 0;
+	position: relative;
+	line-height: 20px;
+	margin-bottom: 8px;
+	font-size: 0;
+}
+
+.news .news_tit {
+	display: inline-block;
+	font-size: 14px;
+	margin-left: 15px;
+	color: #333;
+}
+
+.news .news_more {
+	position: absolute;
+	right: 15px;
+	font-size: 12px;
+	color: #999;
+}
+
+.news .news_more:hover {
+	color: #c81623;
+
+}
+
+.news .news_list {
+	position: relative;
+	margin: 0 15px;
+	height: 88px;
+}
+
+.news .news_item {
+	max-width: 160px;
+	height: 16px;
+	line-height: 16px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: #999999;
+	margin-bottom: 6px;
+}
+
+.news_item a:hover {
+	color: #c81623;
+}
+
+.news_tag {
+	display: inline-block;
+	position: relative;
+	font-size: 12px;
+	height: 16px;
+	width: 35px;
+	line-height: 16px;
+	text-align: center;
+	vertical-align: 0;
+	color: #e1251b;
+	background-color: rgba(255, 37, 27, .08);
+	margin-right: 6px;
+}
+
+.J_service {
+	overflow: hidden;
+	position: relative;
+	height: 238px;
+	/* transition: all .2s ease; 扩展动画*/
+}
+
+.J_service::after {
+	position: absolute;
+	height: 1px;
+	left: 15px;
+	right: 15px;
+	background: linear-gradient(270deg, white, #eee, #eee, white);
+	content: "";
+	top: 0;
+}
+
+.service_entry {
+	overflow: hidden;
+	padding: 5px .5px;
+	background: #fff;
+}
+
+.service_list {
+	padding-top: 5px;
+	height: 225px;
+}
+
+.service_frame {
+	overflow: visible;
+}
+
+.service_item {
+	position: relative;
+	float: left;
+	width: 63px;
+	height: 55px;
+	background: #fff;
+	text-align: center;
+	overflow: hidden;
+}
+
+
+.service_lk {
+	display: block;
+	position: relative;
+	cursor: pointer;
+	/* transition: all .2s linear; */
+}
+
+.service_ico,
+.service_ico_img {
+	display: block;
+}
+
+.service_ico {
+	position: relative;
+	width: 28px;
+	height: 28px;
+	margin: 0 auto;
+}
+
+.service_ico_img,
+.service_ico_img_hover {
+	width: 28px;
+	height: 28px;
+}
+
+img {
+	border: 0;
+	vertical-align: middle;
+}
+
+
+.service_ico_img_hover {
+	position: absolute;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+	opacity: 0;
+	transition: all .2s ease;
+}
+
+.service_text {
+	display: block;
+	height: 25px;
+	line-height: 25px;
+	border-bottom: 2px solid #fff;
+	color: #333;
+	transition: color .15s ease;
+}
+
+
+.service_lk:hover .service_text {
+	color: #c81623;
+}
+.service_lk:hover .service_ico_img_hover {
+	visibility: visible;
+	opacity: 1;
+
+}

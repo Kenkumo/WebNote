@@ -157,6 +157,19 @@
 
 - 用`>`隔开
 
+### 属性选择器
+
+选取标签带有某些特殊属性的选择器 我们成为属性选择器
+
+用**[]**表示
+``` css
+	a[title] {} /*titile属性*/
+	input[type=text] {} /*等于text的type属性*/
+	div[class^=font] /*表示以font开始的*/
+	div[class$=footer] /*表示以footer结尾的*/
+	div[class*=tao] /*表示含有tao*/
+```
+
 ### 伪元素选择器(CSS3)
 
 - `E::first-letter`：文本第一个单词或字
@@ -781,7 +794,7 @@ img {
 	vertical-align: middle;
 }```
 表单与文字居中对齐：
-```css
+​```css
 textarea {
 	vertical-align: middle;
 }
