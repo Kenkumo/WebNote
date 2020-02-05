@@ -1720,7 +1720,716 @@ document.body // 返回body元素对象
 document.documentElement // 返回html元素对象
 ```
 
+### 事件基础
 
+#### 事件三要素
+
+- 事件源（谁）：触发事件的元素
+- 事件类型（什么事件）： 例如 click 点击事件
+- 事件处理程序（做啥）：事件触发后要执行的代码(函数形式)，事件处理函数
+
+**案例代码**
+
+```js
+<body>
+    <button id="btn">唐伯虎</button>
+    <script>
+        // 点击一个按钮，弹出对话框
+        // 1. 事件是有三部分组成  事件源  事件类型  事件处理程序   我们也称为事件三要素
+        //(1) 事件源 事件被触发的对象   谁  按钮
+        var btn = document.getElementById('btn');
+        //(2) 事件类型  如何触发 什么事件 比如鼠标点击(onclick) 还是鼠标经过 还是键盘按下
+        //(3) 事件处理程序  通过一个函数赋值的方式 完成
+        btn.onclick = function() {
+            alert('点秋香');
+        }
+    </script>
+</body>
+```
+
+#### 执行事件的步骤
+
+1. 获取事件源
+2. 注册事件（绑定事件）
+3. 添加事件处理程序（采取函数赋值形式）
+
+**案例代码**
+
+```js
+<body>
+    <div>123</div>
+    <script>
+        // 执行事件步骤
+        // 点击div 控制台输出 我被选中了
+        // 1. 获取事件源
+        var div = document.querySelector('div');
+        // 2.绑定事件 注册事件
+        // div.onclick 
+        // 3.添加事件处理程序 
+        div.onclick = function() {
+            console.log('我被选中了');
+        }
+    </script>
+</body>
+```
+
+#### 常见的鼠标事件
+
+| 鼠标事件    | 触发条件         |
+| ----------- | ---------------- |
+| onclick     | 鼠标点击左键触发 |
+| onmouseover | 鼠标经过触发     |
+| onmouseout  | 鼠标离开时触发   |
+| onfocus     | 获得鼠标焦点触发 |
+| onblur      | 失去鼠标焦点触发 |
+| onmousemove | 鼠标移动触发     |
+| onmouseup   | 鼠标弹起触发     |
+| onmousedown | 鼠标按下触发     |
+
+###  操作元素
+
+​	JavaScript的 DOM 操作可以改变网页内容、结构和样式，我们可以利用 DOM 操作元素来改变元素里面的内容、属性等。（注意：这些操作都是通过元素对象的属性实现的）
+
+#### 改变元素内容（获取或设置）
+
+```js
+// 从起始位置到终止位置的内容，但是去除html标签，同时空格和换行也会去掉
+element.innerText
+
+// 起始位置到终止位置的全部内容，包括html标签，同时保留空格和换行
+element.innerHTML
+```
+
+**innerText改变元素内容**
+
+```js
+<body>
+    <button>显示当前系统时间</button>
+    <div>某个时间</div>
+    <p>1123</p>
+    <script>
+        // 当我们点击了按钮，  div里面的文字会发生变化
+        // 1. 获取元素 
+        var btn = document.querySelector('button');
+        var div = document.querySelector('div');
+        // 2.注册事件
+        btn.onclick = function() {
+            // div.innerText = '2019-6-6';
+            div.innerHTML = getDate();
+        }
+        function getDate() {
+            var date = new Date();
+            // 我们写一个 2019年 5月 1日 星期三
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var dates = date.getDate();
+            var arr = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            var day = date.getDay();
+            return '今天是：' + year + '年' + month + '月' + dates + '日 ' + arr[day];
+        }
+    </script>
+</body>
+```
+
+**innerText和innerHTML的区别**
+
+- 获取内容时的区别：
+
+​	innerText会去除空格和换行，而innerHTML会保留空格和换行	
+
+- 设置内容时的区别：
+
+​	innerText不会识别html，而innerHTML会识别
+
+**案例代码**
+
+```js
+<body>
+    <div></div>
+    <p>
+        我是文字
+        <span>123</span>
+    </p>
+    <script>
+        // innerText 和 innerHTML的区别 
+        // 1. innerText 不识别html标签 非标准  去除空格和换行
+        var div = document.querySelector('div');
+        // div.innerText = '<strong>今天是：</strong> 2019';
+        // 2. innerHTML 识别html标签 W3C标准 保留空格和换行的
+        div.innerHTML = '<strong>今天是：</strong> 2019';
+        // 这两个属性是可读写的  可以获取元素里面的内容
+        var p = document.querySelector('p');
+        console.log(p.innerText);
+        console.log(p.innerHTML);
+    </script>
+</body>
+```
+
+#### 常见元素的属性操作
+
+1. innerText、innerHTML 改变元素内容
+2. src、href
+3. id、alt、title
+
+**案例代码**
+
+```js
+<body>
+    <button id="ldh">刘德华</button>
+    <button id="zxy">张学友</button> <br>
+    <img src="images/ldh.jpg" alt="" title="刘德华">
+    <script>
+        // 修改元素属性  src
+        // 1. 获取元素
+        var ldh = document.getElementById('ldh');
+        var zxy = document.getElementById('zxy');
+        var img = document.querySelector('img');
+        // 2. 注册事件  处理程序
+        zxy.onclick = function() {
+            img.src = 'images/zxy.jpg';
+            img.title = '张学友思密达';
+        }
+        ldh.onclick = function() {
+            img.src = 'images/ldh.jpg';
+            img.title = '刘德华';
+        }
+    </script>
+</body>
+```
+
+#### 案例：分时问候
+
+![分时问候1](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\分时问候1.png)
+
+![分时问候2](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\分时问候2.png)
+
+```js
+<body>
+    <div>
+        <img src="images/s.gif" style="width: 300px;"/>
+        <h2>上午好</h2>
+    </div>
+
+    <script>
+        // 1.获取元素
+        var img = document.querySelector('img');
+        var h2 = document.querySelector('h2');
+        // 2.得到当前的小时数
+        var date = new Date();
+        var h = date.getHours();
+        // 3.判断小时数改变图片和文字信息
+        if (h < 12) {
+            img.src = 'images/s.gif';
+            h2.innerHTML = '亲，上午好！';
+        } else if (h < 18 ) {
+            img.src = 'images/x.gif';
+            h2.innerHTML = '亲，下午好！';
+        } else {
+            img.src = 'images/w.gif';
+            h2.innerHTML = '亲，晚上好！';
+        }
+    </script>
+</body>
+```
+
+#### 表单元素的属性操作
+
+```
+利用DOM可以操作如下表单元素属性：
+type、value、checked、selected、disabled
+```
+
+**案例代码**
+
+```js
+<body>
+    <button>按钮</button>
+    <input type="text" value="输入内容">
+    <script>
+        // 1. 获取元素
+        var btn = document.querySelector('button');
+        var input = document.querySelector('input');
+        // 2. 注册事件 处理程序
+        btn.onclick = function() {
+            // 表单里面的值 文字内容是通过 value 来修改的
+            input.value = '被点击了';
+            // 如果想要某个表单被禁用 不能再点击 disabled  我们想要这个按钮 button禁用
+            // btn.disabled = true;
+            this.disabled = true;
+            // this 指向的是事件函数的调用者 btn
+        }
+    </script>
+</body>
+```
+
+#### 案例：仿京东显示密码
+
+![仿京东显示密码1](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\仿京东显示密码1.png)
+
+![仿京东显示密码2](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\仿京东显示密码2.png)
+
+```js
+    <style>
+        .box {
+            position: relative;
+            width: 400px;
+            border-bottom: 1px solid #ccc;
+            margin: 100px auto;
+        }
+
+        .box input {
+            width: 370px;
+            height: 30px;
+            border: 0;
+            outline: none;
+        }
+
+        .box img {
+            position: absolute;
+            top: 8px;
+            right: 0px;
+            width: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <label for="">
+            <img src="images/close.png" alt="" id="eye">
+        </label>
+        <input type="password" id="pwd">
+    </div>
+    <script>
+        // 1.获取元素
+        var eye = document.getElementById('eye');
+        var pwd = document.getElementById('pwd');
+        // 2.注册事件
+        var flag = 0;
+        eye.onclick = function () {
+            if (flag == 0) {
+                pwd.type = 'text';
+                eye.src = 'images/open.png';
+                flag = 1;
+            } else {
+                pwd.type = 'password';
+                eye.src = 'images/close.png';
+                flag = 0;
+            }
+
+        }
+    </script>
+</body>
+```
+
+#### 样式属性操作
+
+我们可以通过 JS 修改元素的大小、颜色、位置等样式。
+
+常用方式：
+
+1. element.style	行内样式操作
+2. element.className    类名样式操作
+
+##### 方式1：通过操作style属性
+
+> 元素对象的style属性也是一个对象！
+>
+> 元素对象.style.样式属性 = 值;
+
+注意：
+
+1. JS里面的样式采取驼峰命名法，比如fontSize、backgroundColor
+2. JS修改style样式操作，产生的是行内样式，CSS权重比较高
+
+**案例代码**
+
+```js
+<body>
+    <div></div>
+    <script>
+        // 1. 获取元素
+        var div = document.querySelector('div');
+        // 2. 注册事件 处理程序
+        div.onclick = function() {
+            // div.style里面的属性 采取驼峰命名法 
+            this.style.backgroundColor = 'purple';
+            this.style.width = '250px';
+        }
+    </script>
+</body>
+```
+
+##### 案例：淘宝点击关闭二维码
+
+![淘宝点击关闭二维码1](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\淘宝点击关闭二维码1.png)
+
+![淘宝点击关闭二维码2](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\淘宝点击关闭二维码2.png)
+
+```js
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            margin: 100px auto;
+            width: 80px;
+            position: relative;
+        }
+
+        .box h4 {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 400;
+            color: chocolate;
+        }
+
+        .box img {
+            width: 80px;
+
+        }
+
+        .box i {
+            top: 19px;
+            left: -17px;
+            position: absolute;
+            font-style: normal;
+            width: 15px;
+            height: 15px;
+            line-height: 15px;
+            text-align: center;
+            border: 1px solid #ccc;
+            color: #ccc;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h4>手机淘宝</h4>
+        <img src="images/tao.png">
+        <i class="close-btn">x</i>
+    </div>
+    <script>
+        // 1.获取元素
+        var box = document.querySelector('.box');
+        var btn = document.querySelector('.close-btn');
+        // 2.注册事件
+        btn.onclick = function() {
+            box.style.display = 'none';
+        }
+    </script>
+</body>
+```
+
+##### 案例：循环精灵图背景
+
+![](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\循环精灵图背景1.png)
+
+![](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\循环精灵图背景2.png)
+
+```js
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        li {
+            list-style-type: none;
+        }
+        
+        .box {
+            width: 250px;
+            margin: 100px auto;
+        }
+        
+        .box li {
+            float: left;
+            width: 24px;
+            height: 24px;
+            background-color: pink;
+            margin: 15px;
+            background: url(images/sprite.png) no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script>
+        // 1. 获取元素 所有的小li 
+        var lis = document.querySelectorAll('li');
+        for (var i = 0; i < lis.length; i++) {
+            // 让索引号 乘以 44 就是每个li 的背景y坐标  index就是我们的y坐标
+            var index = i * 44;
+            lis[i].style.backgroundPosition = '0 -' + index + 'px';
+        }
+    </script>
+</body>
+```
+
+##### 案例：显示隐藏文本框内容
+
+![](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\显示隐藏文本框内容1.png)
+
+![](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\显示隐藏文本框内容2.png)
+
+```js
+    <style>
+        input {
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" value="手机">
+    <script>
+        // 1.获取元素
+        var text = document.querySelector('input');
+        // 2.注册事件 获得焦点事件 onfocus 
+        text.onfocus = function() {
+                // console.log('得到了焦点');
+                if (this.value === '手机') {
+                    this.value = '';
+                }
+                // 获得焦点需要把文本框里面的文字颜色变黑
+                this.style.color = '#333';
+            }
+            // 3. 注册事件 失去焦点事件 onblur
+        text.onblur = function() {
+            // console.log('失去了焦点');
+            if (this.value === '') {
+                this.value = '手机';
+            }
+            // 失去焦点需要把文本框里面的文字颜色变浅色
+            this.style.color = '#999';
+        }
+    </script>
+
+</body>
+```
+
+##### 方式2：通过操作className属性
+
+```js
+元素对象.className = 值;
+因为class是关键字，所以使用className。
+
+注意：
+1.如果样式修改较多，可以采取操作类名方式更改元素样式
+2.class因为是个保留字，因此使用className来操作元素类名属性
+3.className会直接更改元素的类名，会覆盖原先的类名
+```
+
+**案例代码**
+
+```js
+<body>
+    <div class="first">文本</div>
+    <script>
+        // 1. 使用 element.style 获得修改元素样式  如果样式比较少 或者 功能简单的情况下使用
+        var test = document.querySelector('div');
+        test.onclick = function() {
+            // this.style.backgroundColor = 'purple';
+            // this.style.color = '#fff';
+            // this.style.fontSize = '25px';
+            // this.style.marginTop = '100px';
+
+            // 2. 我们可以通过 修改元素的className更改元素的样式 适合于样式较多或者功能复杂的情况
+            // 3. 如果想要保留原先的类名，我们可以这么做 多类名选择器
+            // this.className = 'change';
+            this.className = 'first change';
+        }
+    </script>
+</body>
+```
+
+##### 案例：密码框格式提示错误信息
+
+![](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\密码框格式提示错误信息1.png)
+
+![](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\密码框格式提示错误信息2.png)
+
+```js
+    <style>
+        div {
+            width: 600px;
+            margin: 100px auto;
+        }
+        
+        .message {
+            display: inline-block;
+            font-size: 12px;
+            color: #999;
+            background: url(images/mess.png) no-repeat left center;
+            padding-left: 20px;
+        }
+        
+        .wrong {
+            color: red;
+            background-image: url(images/wrong.png);
+        }
+        
+        .right {
+            color: green;
+            background-image: url(images/right.png);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="register">
+        <input type="password" class="ipt">
+        <p class="message">请输入6~16位密码</p>
+    </div>
+    <script>
+        // 首先判断的事件是表单失去焦点 onblur
+        // 如果输入正确则提示正确的信息颜色为绿色小图标变化
+        // 如果输入不是6到16位，则提示错误信息颜色为红色 小图标变化
+        // 因为里面变化样式较多，我们采取className修改样式
+        // 1.获取元素
+        var ipt = document.querySelector('.ipt');
+        var message = document.querySelector('.message');
+        //2. 注册事件 失去焦点
+        ipt.onblur = function() {
+            // 根据表单里面值的长度 ipt.value.length
+            if (this.value.length < 6 || this.value.length > 16) {
+                // console.log('错误');
+                message.className = 'message wrong';
+                message.innerHTML = '您输入的位数不对要求6~16位';
+            } else {
+                message.className = 'message right';
+                message.innerHTML = '您输入的正确';
+            }
+        }
+    </script>
+</body>
+```
+
+### 排他操作
+
+如果有同一组元素，我们想要某一个元素实现某种样式， 需要用到循环的排他思想算法：
+
+1. 所有元素全部清除样式（干掉其他人）
+
+2. 给当前元素设置样式 （留下我自己）
+
+3. 注意顺序不能颠倒，首先干掉其他人，再设置自己
+
+```js
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+    <script>
+        // 1. 获取所有按钮元素
+        var btns = document.getElementsByTagName('button');
+        // btns得到的是伪数组  里面的每一个元素 btns[i]
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].onclick = function() {
+                // (1) 我们先把所有的按钮背景颜色去掉  干掉所有人
+                for (var i = 0; i < btns.length; i++) {
+                    btns[i].style.backgroundColor = '';
+                }
+                // (2) 然后才让当前的元素背景颜色为pink 留下我自己
+                this.style.backgroundColor = 'pink';
+
+            }
+        }
+    </script>
+```
+
+#### 案例：百度换肤
+
+![](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\百度换肤(1).png)
+
+![](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\百度换肤(2).png)
+
+```js
+   <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background: url(images/1.jpg) no-repeat center top;
+        }
+        
+        li {
+            list-style: none;
+        }
+        
+        .baidu {
+            overflow: hidden;
+            margin: 100px auto;
+            background-color: #fff;
+            width: 410px;
+            padding-top: 3px;
+        }
+        
+        .baidu li {
+            float: left;
+            margin: 0 1px;
+            cursor: pointer;
+        }
+        
+        .baidu img {
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="baidu">
+        <li><img src="images/1.jpg"></li>
+        <li><img src="images/2.jpg"></li>
+        <li><img src="images/3.jpg"></li>
+        <li><img src="images/4.jpg"></li>
+    </ul>
+    <script>
+        // 1. 获取元素 
+        var imgs = document.querySelector('.baidu').querySelectorAll('img');
+        // console.log(imgs);
+        // 2. 循环注册事件 
+        for (var i = 0; i < imgs.length; i++) {
+            imgs[i].onclick = function() {
+                // this.src 就是我们点击图片的路径   images/2.jpg
+                // console.log(this.src);
+                // 把这个路径 this.src 给body 就可以了
+                document.body.style.backgroundImage = 'url(' + this.src + ')';
+            }
+        }
+    </script>
+</body>
+```
+
+#### 案例：表格隔行变色
+
+![](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\表格隔行变色 (1).png)
+
+![](C:\Users\Administrator\Desktop\WebNote\第三部分 JavaScript网络编程\images\表格隔行变色 (2).png)
 
 # JavaScript高级
 
